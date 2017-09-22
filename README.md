@@ -16,4 +16,4 @@ npm start
 
 ## Copyright
 
-By Pascal, Lars and Livio
+Lars Vognstrup
